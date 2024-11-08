@@ -11,7 +11,7 @@ app.secret_key=os.environ["SECRET_KEY"]; #secret key, very secret, make a new on
 def render_start():
     return render_template('start.html')
 
-@app.route("/next")
+@app.route("/next", methods=["GET", "POST"])
 def render_next():
     return render_template('question.html')
 
