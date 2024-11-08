@@ -1,0 +1,27 @@
+[
+	{
+		"question":"question template",
+		"answers":["answer_a", "answer_b", "answer_c", "answer_d"],
+		"correct":0
+	},
+	{
+		"question":"question template",
+		"answers":["answer_a", "answer_b", "answer_c", "answer_d"],
+		"correct":0
+	},
+	{
+		"question":"question template",
+		"answers":["answer_a", "answer_b", "answer_c", "answer_d"],
+		"correct":0
+	},
+	{
+		"question":"question template",
+		"answers":["answer_a", "answer_b", "answer_c", "answer_d"],
+		"correct":0
+	},
+	{
+		"question":"question template",
+		"answers":["answer_a", "answer_b", "answer_c", "answer_d"],
+		"correct":0
+	}
+]
