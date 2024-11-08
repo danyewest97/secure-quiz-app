@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% set active_page = "home" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <!--page content-->
+	<div class="center">
+		<br>
+		<h1>About the United States Wind Turbines Data</h1>
+		<br>
+		<p>The data used in this web app is taken from <a href="https://corgis-edu.github.io/corgis/json/wind_turbines/">here</a> and can be found on the <a href="https://corgis-edu.github.io/corgis/json/">CORGIS Dataset Project</a> website.</p>
+		<br>
+		<p>One statistic in this dataset is the turbine capacity. This refers to the amount of electricity that a single turbine can produce, and is measured in kilowatts (KW). So, if a turbine has a capacity of 65, that means that it can produce up to 65 kilowatts of power.
+		However, there is also a statistic called the project capacity. This number refers to how much electricity every turbine in a project (a group of turbines built at the same time) can generate all together, measured in megawatts. So, if there was a project with 10 turbines that could each produce
+		65 kilowatts of power, the project capacity for each turbine would be 0.65, indicating that the entire project at peak performance could generate 0.65 megawatts of electrical power.</p>
+		<br>
+		<br>
+		<img id="turbine" src="static/turbine.webp" alt="Image of a wind turbine">
+		<br>
+		<br>
+	</div>
+{% endblock %}
