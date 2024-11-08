@@ -12,7 +12,7 @@ def render_start():
     return render_template('start.html')
 
 @app.route("/next")
-def render_start():
+def render_next():
     return render_template('question.html')
 
 
