@@ -8,8 +8,9 @@
 	<div class="center">
 		<h1>Start Page</h1>
 		
-		<form action="/next" method="get">
+		<form action="/next" method="post">
 			<button type="submit">Start Quiz</button>
+			<input type="hidden" name="start" value="1"></input>
 		</form>
 	</div>
 {% endblock %}

@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template, request, make_response
+from flask import Flask, url_for, render_template, request, session
 import random, string, json, os
 
 app = Flask(__name__) #__name__ = "__main__" if this is the file that was run.  Otherwise, it is the name of the file (ex. webapp)
@@ -14,44 +14,74 @@ length = len(questions)
 
 @app.route("/")
 def render_start():
-    # Making a response with cookies
-    resp = make_response(render_template('start.html'))
-    resp.set_cookie("Question", "0")
+    session["Question"] = "0"
     
     emptyAnswers = []
-    resp.set_cookie("Answers", json.dumps(emptyAnswers))
+    session["Answers"] = json.dumps(emptyAnswers)
     
-    return resp
+    return render_template("start.html")
 
 @app.route("/next", methods=["GET", "POST"])
 def render_question():
-    if  request.cookies.get("Question") is not None:
-        qnum = int(request.cookies.get("Question"))
+    if session["Question"] is not None:
+        qnum = int(session["Question"])
     else:
         return render_start()
     
-    resp = make_response(question(qnum))
+    answers = json.loads(session["Answers"])
     
-    try:
+    
+    q = questions[qnum]
+    a1 = q["answers"][0]
+    a2 = q["answers"][1]
+    a3 = q["answers"][2]
+    a4 = q["answers"][3]
+    
+    allAnswers = [a1, a2, a3, a4]
+    
+    
+    
+    
+    
+    if "answer" in request.form:
         answer = request.form["answer"]
-    except:
+    else:
         answer = "none"
     
-    answers = json.loads(request.cookies.get("Answers"))
     
-    if qnum != 0:
+    if "refresh-check" in request.form:
+        refresh_check = request.form["refresh-check"]
+        print(refresh_check)
+    else:
+        refresh_check = 0
+    
+    
+    if not "start" in request.form:
         answers.append(answer)
     
-    
-    resp.set_cookie("Question", str(qnum + 1))
-    resp.set_cookie("Answers", json.dumps(answers))
+    if int(refresh_check) == qnum:
+        session["Question"] = str(qnum + 1)
+        session["Answers"] = json.dumps(answers)
+    else:
+        print(str(qnum) + " same question")
+        return render_template('question.html', question=q["question"], answers=allAnswers, questionNum=qnum)
     
     
     if (qnum + 1) >= length:
         score = checkScore(answers)
         return render_template("end.html", score=str(score[0]) + " / " + str(score[1]))
     
-    return resp
+    
+    
+    q = questions[qnum + 1]
+    a1 = q["answers"][0]
+    a2 = q["answers"][1]
+    a3 = q["answers"][2]
+    a4 = q["answers"][3]
+    
+    allAnswers = [a1, a2, a3, a4]
+    
+    return render_template('question.html', question=q["question"], answers=allAnswers, questionNum=str(qnum + 1))
 
 
 
