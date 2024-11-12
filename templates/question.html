@@ -6,6 +6,21 @@
 
 {% block content %}
 	<div class="center">
-		
+		<p>{{ question }}</p>
+		<form action="/next" method="post">
+			<input type="radio" name="answer" value="0">{{ answers[0] }}</input>
+			<br>
+			<br>
+			<input type="radio" name="answer" value="1">{{ answers[1] }}</input>
+			<br>
+			<br>
+			<input type="radio" name="answer" value="2">{{ answers[2] }}</input>
+			<br>
+			<br>
+			<input type="radio" name="answer" value="3">{{ answers[3] }}</input>
+			<br>
+			<br>
+			<button type="submit">Submit</button>
+		</form>
 	</div>
 {% endblock %}
