@@ -51,7 +51,6 @@ def render_question():
     
     if "refresh-check" in request.form:
         refresh_check = request.form["refresh-check"]
-        print(refresh_check)
     else:
         refresh_check = 0
     
@@ -63,7 +62,6 @@ def render_question():
         session["Question"] = str(qnum + 1)
         session["Answers"] = json.dumps(answers)
     else:
-        print(str(qnum) + " same question")
         return render_template('question.html', question=q["question"], answers=allAnswers, questionNum=qnum)
     
     
@@ -71,7 +69,7 @@ def render_question():
         score = checkScore(answers)
         return render_template("end.html", score=str(score[0]) + " / " + str(score[1]))
     
-    
+    print(answers)
     
     q = questions[qnum + 1]
     a1 = q["answers"][0]
