@@ -114,7 +114,7 @@ def checkAnswer(questionIndex, givenAnswer):
     question = questions[questionIndex]
     rightAnswer = question["correct"]
     
-    print(givenAnswer)
+    print(givenAnswer + ", correct: " + rightAnswer)
     
     if givenAnswer == "none":
         return False
