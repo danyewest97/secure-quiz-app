@@ -81,6 +81,7 @@ def render_question():
     if not "start" in request.form:
         print(answer)
         answers.append(answer)
+        print(answers)
     
     
     
