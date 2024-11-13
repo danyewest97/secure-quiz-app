@@ -6,10 +6,23 @@
 
 {% block content %}
 	<div class="center">
+		<br>
 		<h1>Your Score: {{ score }}</h1>
 		<br>
 		<form action="/" method="get">
 			<button type="submit">Retake Quiz</button>
 		</form>
+		<br>
+		<br>
+		<h2>Individual Question Scores:</h2>
+		{% for i in range(qLength) %}
+			{% set index = i + 1 %} 
+			<p>Question {{ index }}: {{ questionsScore[i] }}</p>
+		{% endfor %}
+		<br>
+		<br>
+		{% set minutes = (startTime / 1000) / 60 %}
+		{% set seconds = (startTime / 1000) % 60 %}
+		<h2>Total time taken: {{ minutes|int }} minutes, {{ seconds|int }} seconds</h2>
 	</div>
 {% endblock %}

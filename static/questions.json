@@ -1,27 +1,47 @@
 [
 	{
-		"question":"question template",
-		"answers":["answer_a", "answer_b", "answer_c", "answer_d"],
+		"question":"What is considered the first video game ever?",
+		"answers":["Tetris", "Minecraft", "Pong", "Street Fighter"],
+		"correct":2
+	},
+	{
+		"question":"What does a print statement look like in Java?",
+		"answers":["print([text])", "System.out.println([text])", "printf([text])", "std::cout([text])"],
+		"correct":1
+	},
+	{
+		"question":"What is the largest rocket ever flown?",
+		"answers":["N1", "Saturn V", "Atlas", "Starship"],
+		"correct":3
+	},
+	{
+		"question":"Who is considered the father of rocket science?",
+		"answers":["Isaac Newton", "Elon Musk", "Wernher Von Braun", "Robert Goddard"],
+		"correct":3
+	},
+	{
+		"question":"Who climbed El Capitan without safety gear in 2017?",
+		"answers":["Adam Ondra", "Dwayne Johnson", "Magnus Midtbo", "Alex Honnold"],
+		"correct":3
+	},
+	{
+		"question":"What was the precursor instrument to the clarinet?",
+		"answers":["The recorder", "The chalumeau", "The oboe", "The English horn"],
+		"correct":1
+	},
+	{
+		"question":"Where should you set a local environment variable to use as a secret key for signing cookies, when running a Flask server locally?",
+		"answers":["In the System environment variables", "In the User environment variables", "In a batch file running your server code", "In your server's Python file"],
+		"correct":2
+	},
+	{
+		"question":"What is the best-selling (most copies sold) game by Nintendo?",
+		"answers":["Wii Sports", "Super Mario Bros.", "Mario Kart 8/Mario Kart 8 Deluxe", "Pokemon Red, Green, and Blue"],
 		"correct":0
 	},
 	{
-		"question":"question template",
-		"answers":["answer_a", "answer_b", "answer_c", "answer_d"],
-		"correct":0
-	},
-	{
-		"question":"question template",
-		"answers":["answer_a", "answer_b", "answer_c", "answer_d"],
-		"correct":0
-	},
-	{
-		"question":"question template",
-		"answers":["answer_a", "answer_b", "answer_c", "answer_d"],
-		"correct":0
-	},
-	{
-		"question":"question template",
-		"answers":["answer_a", "answer_b", "answer_c", "answer_d"],
-		"correct":0
+		"question":"What is the best-selling (most copies sold) game ever?",
+		"answers":["Tetris", "Minecraft", "PUBG", "Grand Theft Auto V"],
+		"correct":1
 	}
 ]

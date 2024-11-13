@@ -1,5 +1,5 @@
-from flask import Flask, url_for, render_template, request, session
-import random, string, json, os
+from flask import Flask, url_for, render_template, request, session, redirect
+import random, string, json, os, time
 
 app = Flask(__name__) #__name__ = "__main__" if this is the file that was run.  Otherwise, it is the name of the file (ex. webapp)
 
@@ -19,16 +19,39 @@ def render_start():
     emptyAnswers = []
     session["Answers"] = json.dumps(emptyAnswers)
     
+    session["Done"] = "false"
+    
+    session["Time"] = 0
+    session["StartTime"] = time.time()
+    
     return render_template("start.html")
 
 @app.route("/next", methods=["GET", "POST"])
 def render_question():
+    if not "Question" in session:
+        return redirect("/")
+    
+    
+    if not session["Done"] == "true":
+        currTime = time.time()
+        diff = (currTime - int(session["StartTime"])) * 1000
+        session["Time"] = str(diff)
+    else:
+        diff = int(float(session["Time"]))
+    
+    
     if session["Question"] is not None:
         qnum = int(session["Question"])
     else:
         return render_start()
     
+    
     answers = json.loads(session["Answers"])
+    
+    
+    if session["Done"] == "true":
+        score = checkScore(answers)
+        return render_template("end.html", score=str(score[0]) + " / " + str(score[1]), questionsScore=qScore(answers), qLength=(length-1), startTime=int(diff))
     
     
     q = questions[qnum]
@@ -56,20 +79,23 @@ def render_question():
     
     
     if not "start" in request.form:
+        print(answer)
         answers.append(answer)
+    
+    
     
     if int(refresh_check) == qnum:
         session["Question"] = str(qnum + 1)
         session["Answers"] = json.dumps(answers)
     else:
-        return render_template('question.html', question=q["question"], answers=allAnswers, questionNum=qnum, qLength=length)
+        return render_template('question.html', question=q["question"], answers=allAnswers, questionNum=qnum, qLength=str(length - 1), startTime=int(diff))
     
     
     if (qnum + 1) >= length:
         score = checkScore(answers)
-        return render_template("end.html", score=str(score[0]) + " / " + str(score[1]))
+        session["Done"] = "true"
+        return render_template("end.html", score=str(score[0]) + " / " + str(score[1]), questionsScore=qScore(answers), qLength=(length-1), startTime=int(diff))
     
-    print(answers)
     
     q = questions[qnum + 1]
     a1 = q["answers"][0]
@@ -79,13 +105,15 @@ def render_question():
     
     allAnswers = [a1, a2, a3, a4]
     
-    return render_template('question.html', question=q["question"], answers=allAnswers, questionNum=str(qnum + 1), qLength=length)
+    return render_template('question.html', question=q["question"], answers=allAnswers, questionNum=str(qnum + 1), qLength=str(length - 1), startTime=int(diff))
 
 
 
 def checkAnswer(questionIndex, givenAnswer):
     question = questions[questionIndex]
     rightAnswer = question["correct"]
+    
+    print(givenAnswer)
     
     if givenAnswer == "none":
         return False
@@ -100,11 +128,10 @@ def checkScore(answers):
     total = 0
     result = []
     
-    print(answers)
     
     for i in range(length - 1):
         total += 1
-        if checkAnswer(i - 1, answers[i - 1]):
+        if checkAnswer(i, answers[i]):
             right += 1
             
     
@@ -114,10 +141,40 @@ def checkScore(answers):
     return result
     
         
-        
+def qScore(answers):
+    result = []
+    answers = json.loads(session["Answers"])
+    
+    for i in range(length - 1):
+        if checkAnswer(i, answers[i]):
+            result.append("Correct")
+        else:
+            result.append("Incorrect")
+    
+    
+    return result        
         
 
 
 
 if __name__=="__main__":
     app.run(debug=True)
+
+
+
+
+
+
+
+
+
+
+
+# Question Template for json file:
+
+# ,
+	# {
+		# "question":"question_template",
+		# "answers":["answer_a", "answer_b", "answer_c", "answer_d"],
+		# "correct":0
+	# }
