@@ -87,6 +87,15 @@ def render_question():
         session["Question"] = str(qnum + 1)
         session["Answers"] = json.dumps(answers)
     else:
+        print("refresh")
+        q = questions[qnum - 1]
+        a1 = q["answers"][0]
+        a2 = q["answers"][1]
+        a3 = q["answers"][2]
+        a4 = q["answers"][3]
+        
+        allAnswers = [a1, a2, a3, a4]
+        
         return render_template('question.html', question=q["question"], answers=allAnswers, questionNum=qnum, qLength=str(length - 1), startTime=int(diff))
     
     
