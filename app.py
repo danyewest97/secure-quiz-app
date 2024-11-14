@@ -79,9 +79,7 @@ def render_question():
     
     
     if not "start" in request.form:
-        print(answer)
         answers.append(answer)
-        print(answers)
     
     
     
@@ -98,11 +96,7 @@ def render_question():
         return render_template("end.html", score=str(score[0]) + " / " + str(score[1]), questionsScore=qScore(answers), qLength=(length-1), startTime=int(diff))
     
     
-    q = questions[qnum + 1]
-    a1 = q["answers"][0]
-    a2 = q["answers"][1]
-    a3 = q["answers"][2]
-    a4 = q["answers"][3]
+    
     
     allAnswers = [a1, a2, a3, a4]
     
@@ -114,7 +108,6 @@ def checkAnswer(questionIndex, givenAnswer):
     question = questions[questionIndex]
     rightAnswer = question["correct"]
     
-    print(givenAnswer + ", correct: " + rightAnswer)
     
     if givenAnswer == "none":
         return False
@@ -159,7 +152,7 @@ def qScore(answers):
 
 
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run(debug=False)
 
 
 
